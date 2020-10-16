@@ -189,8 +189,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const fval = (fp[key] || '').toLowerCase()
-          let value = Utils.getItemField(item, key, false)
+          let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
+
+          console.log(thisColumn, fval, Utils.getItemField(item, key, false))
 
           if (fval === '') {
             tmpItemIsExpected = true
@@ -204,6 +206,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
                 value
               )
             }
+
+            console.log(value)
 
             if ($.inArray(key, that.header.fields) !== -1) {
               if (value === undefined || value === null) {
